@@ -2,7 +2,17 @@ from django.db import models
 from django.contrib.auth.models import User
 
 # Create your models here.
-class Post(models.Model):
+class Post_youtuber(models.Model):
+    title = models.CharField(max_length=200)
+    content = models.TextField()
+    datetime = models.DateTimeField()
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
+    img = models.TextField()
+
+    def __str__(self):
+        return self.title
+
+class Post_editor(models.Model):
     title = models.CharField(max_length=200)
     content = models.TextField()
     datetime = models.DateTimeField()
@@ -17,4 +27,4 @@ class Comment(models.Model):
     content = models.TextField()
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments')
     rate = models.IntegerField()
-    "니ㅏㅇ러낭런"
+    datetime = models.DateTimeField()
