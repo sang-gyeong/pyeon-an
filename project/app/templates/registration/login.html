@@ -1,0 +1,53 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <title>편-안</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'login.css' %}">
+  </head>
+  <body>
+    <header>
+       <a href="{% url 'home' %}"><img class="logo_img"src="http://bitly.kr/g0orDEy8SP" alt="logo"></a>
+     <nav>
+        <a href="{% url 'list_youtuber' %}" class="nav-item">모집공고</a>
+        <a href="{% url 'list_editor' %}" class="nav-item">편집자목록</a>
+          {% if user.is_authenticated %} 
+         <a href="{% url 'mypage_youtuber' %}" class="nav-item">마이페이지</a>
+         {% else %} 
+           <a href="{% url 'login' %}" class="nav-item">로그인</a>
+        {% endif %}
+      </nav>
+    </header>
+    <main> 
+         <form class="login_box" method="POST"> 
+        {% csrf_token %}
+        <h3 class="login_title">로그인</h3>
+        {% if error %}
+        <p class="error_message" style="color : tomato;">{{ error }}</p>
+        {% endif %}
+        <div class="login_wrapper">
+            <input type="text" name="username" placeholder="ID">
+            <input type="password" name="password" placeholder="Password">
+            <div class="button_box">
+                    <a class="social_login" href="">구글 계정 로그인</a>
+                    <button class="login_button" type="submit">로그인</button>
+            </div>
+        </div>
+        <a class="signup_ask" href="{% url 'signup' %}">아직 회원이 아니세요?</a>
+    </form>
+    
+    </main>
+    
+  </body>
+  
+</html>
+
+
+
+    
+
+

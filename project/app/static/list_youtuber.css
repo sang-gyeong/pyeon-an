@@ -1,0 +1,238 @@
+html {
+    font-size: 62.5%;
+    color: #303030;
+    line-height: 210%;
+    font-family: 'Noto Sans KR';
+}
+
+a {
+    text-decoration: none;
+    color: #303030;
+}
+
+body {
+    margin: 0;
+}
+
+header {
+    background-color: white;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 0px 0px 10px;
+    font-size: 1.3rem;
+}
+
+nav {
+    white-space: nowrap;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.33rem;
+}
+
+nav>a {
+    margin-right: 17px;
+}
+
+.logo_img {
+    width: 105px;
+    position: relative;
+    top: 4px;
+}
+
+main {
+    background: linear-gradient( to top, steelblue, lightblue);
+    padding-bottom: 40px;
+}
+
+.list_top {
+    background-color: #f2f2f2;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    padding: 0px 17px;
+    font-size: 1.5rem;
+    justify-content: space-between;
+}
+
+.new_button {
+    background-color: white;
+    display: flex;
+    width: 150px;
+    height: 36px;
+    border-radius: 20px;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.filter_box {
+    padding: 10px 10px;
+}
+
+.filter_wrapper {
+    width: 100%;
+    white-space: nowrap;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.filter_item {
+    width: 49.5%;
+    border: none;
+    height: 38px;
+    margin-bottom: 3px;
+    color: #303030;
+    padding-left: 10px;
+    margin-right: 1px;
+    background-color: white;
+}
+
+.last_filter {
+    padding: 0;
+    width: 100%;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    justify-content: center;
+}
+
+.last_filter_item {
+    margin: 5px;
+    cursor: pointer;
+    display: flex;
+    font-size: 1.3rem;
+    align-items: center;
+    white-space: nowrap;
+}
+
+input[type=checkbox] {
+    display: none;
+}
+
+input[type=checkbox]:checked+label {
+    color: #1f9cff;
+    font-weight: 600;
+    font-size: 1.34rem;
+}
+
+.button_sort_box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.submit_button {
+    display: block;
+    border: none;
+    background-color: white;
+    display: flex;
+    width: 180px;
+    height: 40px;
+    border-radius: 20px;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.35rem;
+    font-weight: 600;
+    margin: 15px 0px;
+    cursor: pointer;
+}
+
+.sort_bar {
+    border: none;
+    width: 130px;
+    height: 22px;
+    color: #303030;
+    padding-left: 3px;
+    border-bottom: 1px #303030 solid;
+    background-color: transparent;
+}
+
+.post_box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 15px;
+    padding-left: 10px;
+    box-sizing: border-box;
+}
+
+.post_item {
+    height: 70px;
+    display: flex;
+    margin-bottom: 12px;
+    cursor: pointer;
+}
+
+.post_item_left {
+    width: 83%;
+    background-color: #f2f2f2;
+    line-height: 35%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    padding-left: 5px;
+}
+
+.post_author_img {
+    background-image: url('http://bitly.kr/EPAdwk484sb');
+    background-size: cover;
+    background-position: center;
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    margin: 7px;
+    border-radius: 50%;
+}
+
+.post_author {
+    font-size: 1.15rem;
+}
+
+.post_title {
+    font-weight: 600;
+    font-size: 1.33rem;
+}
+
+.post_tag {
+    position: relative;
+    top: 4px;
+    font-size: 1.1rem;
+}
+
+.post_item_right {
+    width: 17%;
+    background-color: steelblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: white;
+}
+
+.like_button {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 2rem;
+}
+
+.page_num {
+    display: inline-block;
+    margin-top: 15px;
+    margin-left: 45%;
+    font-size: 1.5rem;
+}
+
+footer {
+    background-color: steelblue;
+    height: 50px;
+    text-align: center;
+    padding-top: 5px;
+    font-size: 1.1rem;
+}

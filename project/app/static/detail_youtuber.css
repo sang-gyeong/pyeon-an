@@ -1,0 +1,450 @@
+html {
+    font-size: 62.5%;
+    color: #303030;
+    line-height: 210%;
+    font-family: 'Noto Sans KR';
+}
+
+a {
+    text-decoration: none;
+    color: #303030;
+}
+
+body {
+    margin: 0;
+}
+
+textarea {
+    resize: none;
+    font-family: 'Noto Sans KR';
+}
+
+header {
+    background-color: white;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 0px 0px 10px;
+    font-size: 1.3rem;
+}
+
+nav {
+    white-space: nowrap;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.33rem;
+}
+
+nav>a {
+    margin-right: 17px;
+}
+
+.logo_img {
+    width: 105px;
+    position: relative;
+    top: 4px;
+}
+
+main {
+    width: 100%;
+    background-color: lightblue;
+    padding-bottom: 27px;
+    position: relative;
+}
+
+.detail_top {
+    background-color: #f2f2f2;
+    height: 100px;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile_box {
+    width: 90%;
+    display: flex;
+    align-items: center;
+}
+
+.detail_title {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin: 2px 0px;
+}
+
+.profile_img {
+    width: 55px;
+    background-color: white;
+    height: 55px;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+.profile_name_wrapper {
+    display: flex;
+    font-size: 1.15rem;
+}
+
+.edit_button,
+.delete_button {
+    background-color: white;
+    border: 0.1px #303030 solid;
+    box-sizing: border-box;
+    font-size: 0.9rem;
+    display: inline-block;
+    width: 31px;
+    height: 19px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    top: 1px;
+    border-radius: 8px;
+    color: #303030;
+    margin-left: 5.5px;
+}
+
+.delete_button {
+    position: relative;
+    right: 3px;
+}
+
+.profile_content_bottom {
+    position: relative;
+    bottom: 7px;
+    line-height: 150%;
+    height: 50px;
+    font-size: 1.1rem;
+}
+
+.nav_box {
+    background-color: white;
+    height: 42px;
+    font-size: 1.35rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0px 20px;
+    padding-top: 5px;
+    box-sizing: border-box;
+}
+
+.border-line {
+    height: 0.5px;
+    background-color: white;
+    width: 92%;
+    border: none;
+}
+
+.require_box,
+.work_content_box,
+.review_box,
+.info_box {
+    background-color: lightblue;
+    padding: 10px 15px;
+    box-sizing: border-box;
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.require_title,
+.work_content_title,
+.review_title,
+.info_title {
+    font-size: 1.65rem;
+    font-weight: 550;
+    margin: 12px 0px;
+}
+
+.require_item_wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.require_item {
+    background-color: white;
+    height: 100%;
+    display: flex;
+    border-bottom: 1px lightgrey solid;
+}
+
+.require_item_name {
+    background-color: #f2f2f2;
+    width: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    padding: 5px 0px;
+}
+
+.require_content {
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 0px;
+    padding-left: 10px;
+    font-size: 1.15rem;
+    line-height: 150%;
+}
+
+.require_item_divide {
+    width: 50%;
+    display: flex;
+}
+
+.work_content_vid {
+    width: 100%;
+    height: 210px;
+}
+
+.work_content_description>p {
+    margin: 10px 0px 0px 0px;
+    line-height: 165%;
+    font-size: 1.25rem;
+}
+
+.price_wrapper p {
+    margin: 0;
+}
+
+.price_wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.basic_box,
+.standard_box,
+.premium_box {
+    width: 31.5%;
+    position: relative;
+}
+
+.basic_top,
+.standard_top,
+.premium_top {
+    background-color: steelblue;
+    text-align: center;
+    height: 35px;
+    font-size: 1.3rem;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    color: white;
+    border-radius: 10px 10px 0px 0px;
+}
+
+.review_input_box {
+    background-color: orange;
+}
+
+.review_input_top {
+    background-color: #f2f2f2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 35px;
+    width: 100%;
+}
+
+.review_input_rate {
+    position: relative;
+    top: 5px;
+    left: 5px;
+    width: 100px;
+    height: 100%;
+    display: flex;
+    transform: translate(0%, 0%) rotateY(180deg);
+}
+
+.review_input_rate input {
+    display: none;
+}
+
+.review_input_rate label {
+    display: block;
+    cursor: pointer;
+    width: 20px;
+}
+
+.review_input_rate label:after {
+    content: '\f005';
+    font-family: 'fontAwesome';
+    position: absolute;
+    display: block;
+    font-size: 1.75rem;
+    color: #1f9cff;
+    top: 0;
+    opacity: 0;
+    transition: .5s;
+    text-shadow: 0 1.5px 2px rgba(0, 0, 0, .5);
+}
+
+.review_input_rate label:before {
+    content: '\f005';
+    font-family: 'fontAwesome';
+    position: relative;
+    display: block;
+    font-size: 1.75rem;
+    color: #000000;
+}
+
+.review_input_rate label:hover:after,
+.review_input_rate label:hover~label:after,
+.review_input_rate input:checked~label:after {
+    opacity: 1;
+}
+
+.review_submit_button {
+    background-color: #1f9cff;
+    border: none;
+    color: white;
+    padding: 5px;
+    font-size: 1.33rem;
+    width: 87px;
+    height: 100%;
+    cursor: pointer;
+}
+
+.review_input_bottom {
+    display: flex;
+}
+
+.review_input_content {
+    width: 100%;
+    height: 65px;
+    border: none;
+    padding: 7px;
+    box-sizing: border-box;
+    font-size: 1.25rem;
+}
+
+.review_list_box {
+    display: flex;
+    flex-direction: column;
+    margin-top: 5px;
+}
+
+.review_list_item {
+    background-color: white;
+    margin-top: 10px;
+}
+
+.review_content_top {
+    display: flex;
+    background-color: #f2f2f2;
+    align-items: center;
+    position: relative;
+    height: 37px;
+    padding: 0 3px;
+}
+
+.review_content_top>* {
+    margin-left: 6px;
+    font-size: 1.2rem;
+}
+
+.review_datetime {
+    position: absolute;
+    right: 10px;
+}
+
+.review_author_img {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background-image: url('http://bitly.kr/EPAdwk484sb');
+    background-size: cover;
+    background-position: center;
+}
+
+.review_content_text {
+    line-height: 165%;
+    font-size: 1.2rem;
+    margin: 12px;
+}
+
+.info_method_wrapper,
+.refund_method_wrapper {
+    margin-bottom: 15px;
+}
+
+.info_method_title,
+.refund_method_title {
+    font-size: 1.35rem;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.info_method_text,
+.refund_method_text {
+    font-size: 1.2rem;
+    margin: 0;
+    line-height: 165%;
+}
+
+.info_box {
+    margin-bottom: 35px;
+}
+
+.bottom {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    height: 48px;
+    width: 100%;
+    font-weight: 500;
+    font-size: 1.65rem;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+
+.like_button,
+.chat,
+.register {
+    background-color: white;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.like_button {
+    width: 15%;
+    font-size: 2.5rem;
+}
+
+.chat {
+    width: 42.5%;
+    border-right: 1px lightgrey solid;
+    border-left: 1px lightgrey solid;
+}
+
+.register {
+    width: 42.5%;
+    background-color: steelblue;
+    color: white;
+}
+
+.go_to_top {
+    position: absolute;
+    right: 0;
+    top: -33px;
+    background-color: white;
+    font-size: 1.6rem;
+    width: 34px;
+    height: 33px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

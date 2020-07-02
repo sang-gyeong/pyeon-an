@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <title>편-안</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'base.css' %}">
+    {% block head %}
+    {% endblock head %}
+</head>
+
+<body>
+    <div class ="header">
+        <div class="logo">
+            <a href="{% url 'home' %}"><strong>편 - 안</strong></a>
+        </div>
+        <div class="nav">
+            <div class="nav-item">
+                <a href="{% url 'list_youtuber' %}">편집자 모집</a>
+            </div>
+            <div class="nav-item">
+                <a href="{% url 'list_editor' %}">에디터 프로필</a>
+            </div>
+            {% if user.is_authenticated %}
+            <div class="nav-item">
+                <a href="{% url 'logout' %}">로그아웃</a>
+            </div>
+            <div class="nav-item">
+                <a href="{% url 'mypage_youtuber' user.pk %}">MY</a>
+            </div>
+            {% else %}
+            <div class="nav-item">
+                <a href="{% url 'login' %}">로그인</a>
+            </div>
+            {% endif %}
+        </div> 
+    </div>
+    <div class ="total"> 
+        {% block content %}{% endblock content %}
+    </div>
+    <div></div>
+    <br/>
+
+
+    <div class = "footer">
+        <div class="footer_introduce1">
+            <span>편안소개</span><span>홍보센터</span><span>API</span>
+            <span>개인정보처리방침</span>
+            <span>채용 정보</span><span>도움말</span>
+        </div>
+        <div class="footer_introduce2">
+            <div class="customer"> 
+                <div class="phone">
+                    <p>
+                     편안 고객센터 <br>
+                     02-762-8888 <br>
+                    (평일 09:00~18:00, 주말·공휴일 휴무)
+                     <br>
+                     이메일 : help@comfort.co.kr
+                    </p>
+                </div>
+                <div class="copyright">
+                    <p>
+                    (주)편안, 우 :  02841, 서울특별시 성북구 안암로 145
+                    <br>대표 : 박민정, 박주혜, 윤기석, 이상경
+                    <br>사업자등록 : 113-86-00917, 통신판매업 : 제 1006호
+                    <br>Copyright (c) (주)편안. All rights reserved.
+                    </p>
+                </div>
+            </div>
+        </div>            
+    </div>
+</body>
+</html>

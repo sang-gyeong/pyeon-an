@@ -1,0 +1,182 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <title>편-안</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'detail_youtuber.css' %}">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+   
+  </head>
+  <body>
+    <header id="header">
+           <a href="{% url 'home' %}"><img class="logo_img"src="http://bitly.kr/YqkZ3WM87i" alt="logo"></a>
+     <nav>
+        <a href="{% url 'list_youtuber' %}" class="nav-item">모집공고</a>
+        <a href="{% url 'list_editor' %}" class="nav-item">편집자목록</a>
+          {% if user.is_authenticated %} 
+         <a href="{% url 'mypage_youtuber' %}" class="nav-item">마이페이지</a>
+         {% else %} 
+           <a href="{% url 'login' %}" class="nav-item">로그인</a>
+        {% endif %}
+      </nav>
+    </header>
+    <main> 
+<div class="detail_top">
+  <div class="profile_box">
+    <div class="profile_img" style="background-image:url('{{ post.img }}'); background-size : cover; background-position : center;"></div>
+    <div class="profile_wrapper">
+      <p class="detail_title">"{{ post.title }}"</p>
+      <div class="profile_name_wrapper">
+          <span class="profile_name">{{ post.name }}</span>
+          {% if user.is_authenticated and post.author.pk == user.pk %}
+           <a href="" class="edit_button">수정</a>
+           <a href="{% url 'delete_youtuber' post.pk %} " class="delete_button">삭제</a>
+          {% endif %}
+       </div>
+     </div>
+  </div>
+</div>
+      
+</div>
+
+<div class="nav_box">
+    <a href="#require_box"><span class="nav_item require">모집조건</span></a>
+    <a href="#work_content_box"><span class="nav_item work_content">근무내용</span></a>
+    <a href="#review_box"><span class="nav_item review">리뷰/평점(2)</span></a>
+    <a href="#info_box"><span class="nav_item info">이용안내</span></a>
+</div>
+<div class="require_box" id="require_box">
+    <div class="require_title">모집조건</div>
+    <div class="require_item_wrapper">
+      <div class="require_item">
+        <div class="require_item_name">작업종류</div>
+        <div class="require_content">{{ post.work }}</div>
+      </div>
+      <div class="require_item divide">
+         <div class="require_item_divide">
+            <div class="require_item_name">경력</div>
+            <div class="require_content">{{ post.career }}</div>
+         </div>
+         <div class="require_item_divide">
+            <div class="require_item_name">근무기간</div>
+            <div class="require_content">{{ post.period }}</div>
+         </div>
+      </div>
+      <div class="require_item">
+        <div class="require_item_name">선호편집툴</div>
+        <div class="require_content">{{ post.tool }}</div>
+      </div>
+      <div class="require_item">
+        <div class="require_item_name">급여</div>
+        <div class="require_content">월 2,000,000원(협의가능)</div>
+      </div>
+      <div class="require_item">
+        <div class="require_item_name">공고마감일</div>
+        <div class="require_content">2020년 06월 20일 까지</div>
+      </div>
+      <div class="require_item">
+        <div class="require_item_name">기타사항</div>
+        <div class="require_content">{{ post.etc_require }}</div>
+      </div>
+    </div>
+</div>
+<div class="work_content_box" id="work_content_box">
+    <div class="work_content_title">근무내용</div>
+    <iframe class="work_content_vid" src="{{ post.vid_url }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <div class="work_content_description">
+    <p>
+{{ post.content }}
+</p>
+    </div>
+</div>
+<div class="review_box" id="review_box">
+    <div class="review_title">리뷰/평점(3)</div>
+    {% if user.is_authenticated %}
+        <form class="review_input_box" method="POST">
+        {% csrf_token %} 
+            <div class="review_input_top">
+                <div class="review_input_rate">
+                    <input type="radio" name="rate" id="star5" value="5"><label for="star5">
+                    </label>
+                    <input type="radio" name="rate" id="star4" value="4"><label for="star4">
+                    </label>
+                    <input type="radio" name="rate" id="star3" value="3"><label for="star3">
+                    </label>
+                    <input type="radio" name="rate" id="star2" value="2"><label for="star2">
+                    </label>
+                    <input type="radio" name="rate" id="star1" value="1" checked><label for="star1" >
+                    </label>
+                    
+                </div>
+                <button class="review_submit_button" type="submit">리뷰 작성</button>
+            </div>
+            <div class="review_input_bottom">
+            <textarea class="review_input_content" style="text" placeholder="리뷰를 작성하세요" name="content" required></textarea>
+            </div>
+        </form>
+    {% endif %}
+    <div class="review_list_box">
+        {% for comment in post.comments_y.all %}
+            <div class="review_list_item">
+                <div class="review_content">
+                    <div class="review_content_top">
+                        <div class="review_author_img" ></div>
+                        <span class="review_author_name">{{ comment.author }}</span>
+                        <span class="review_rate"> 
+                        {% if comment.rate == 5 %}
+                        ⭐⭐⭐⭐⭐
+                        {% elif comment.rate == 4 %}
+                        ⭐⭐⭐⭐
+                        {% elif comment.rate == 3 %}
+                        ⭐⭐⭐
+                        {% elif comment.rate == 2 %}
+                        ⭐⭐
+                        {% else %}
+                        ⭐
+                        {% endif %}
+                        </span>
+                        {% if user.is_authenticated and comment.author.pk == user.pk %}
+                            <a class="delete_comment_button" href="{% url 'delete_comment_y' post.pk comment.pk %}">삭제</a>
+                        {% endif %}
+                        <span class="review_datetime">{{ comment.datetime }}</span>
+                    </div>
+                    <p class="review_content_text">{{ comment.content }}</p>
+                </div>
+            </div>
+        </form>
+        {% endfor %} 
+
+    </div>
+</div>
+<div class="info_box" id="info_box">
+    <div class="info_title">지원하기 전 확인하세요!</div>
+    <div class="info_method_wrapper">
+        <p class="info_method_title">📌 지원방식</p>
+        <p class="info_method_text">  
+  - 5월 중 매일 영상 업로드 하며 편집자 2~4명과 로테이션 제작 예정<br>
+  - 기존 제작했던 유튜브 영상 URL 보내주길 바람<br>
+  - 기존 채널 컨셉을 맞추기위해 초기에는 함께 제작 해야 할 수 있음<br>
+  - 거주지/작업실 위치 작성 바람 (행정구역상 '동'까지만 표기)<br>
+  - 조건 작성 바람 ex)분당 00원, 건당 00원<br>
+  - 채널 성장과 본인의 역량에 따라 처우/조건/역할은 달라질 수 있음</p>
+    </div>
+    <div class="refund_method_wrapper">
+        <p class="refund_method_title">📌 환불규정</p>
+        <p class="refund_method_text">결제일 7일이내 환불 요청시 전액환불</p>
+    </div>
+</div>
+<div class="bottom">
+    <div class="like_button">♡</div>
+    <a href="" class="chat">채팅하기</a>
+    <a href="" class="register">지원하기</a>
+    <a href="#header" class="go_to_top">⬆</a>
+</div>
+
+</main>
+
+</body>
+  
+</html>

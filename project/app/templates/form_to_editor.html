@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'form_to_editor.css' %}" type='text/css'>
+{% endblock head %}
+
+    {% block content %}
+    <form class="" method="POST">
+        {% csrf_token %}
+        <div class="q1">
+            <div class="q1_text">신청</div>
+                <input type="text" name="title" placeholder="">
+            </div>
+        </div>
+        <div class="q2">
+            <div class="q2_text">요구사항을 자유형식으로 *자세히* 입력해주세요</div>
+                <input type="text" name="content" placeholder="ex) 자막은 현지 문화에 맞게...">
+            </div>
+        </div>
+        <div class="q3">
+            <div class="q3_text">참고했으면 하는 레퍼런스 주소 입력</div>
+                <input type="url" name="reference" placeholder="http://">
+        </div>
+    </form>
+    {% endblock content %}
+</body>
+</html>
+        
+       

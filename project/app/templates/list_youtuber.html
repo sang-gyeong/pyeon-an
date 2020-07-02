@@ -1,0 +1,161 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <title>편-안</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'list_youtuber.css' %}">
+  </head>
+  <body>
+    <header>
+      <a href="{% url 'home' %}"><img class="logo_img"src="http://bitly.kr/YqkZ3WM87i" alt="logo"></a>
+     <nav>
+        <a href="{% url 'list_youtuber' %}" class="nav-item">모집공고</a>
+        <a href="{% url 'list_editor' %}" class="nav-item">편집자목록</a>
+          {% if user.is_authenticated %} 
+         <a href="{% url 'mypage_youtuber' %}" class="nav-item">마이페이지</a>
+         {% else %} 
+           <a href="{% url 'login' %}" class="nav-item">로그인</a>
+        {% endif %}
+      </nav>
+    </header>
+    <main> 
+<div class="list_top">
+    <p class="list_top_title"><strong>{{ post_youtuber|length }}명의 유튜버</strong>가<br>편집자님을 기다리고 있어요!</p>
+    <a href="{% url 'new_youtuber' %}"><div class="new_button">모집공고 내러가기</div></a>
+</div>
+<div class="filter_box">
+    <div class="filter_wrapper">
+      <select class="filter_item" name="tool">
+        <option value='all' selected>편집 가능 툴</option>
+        <option value='pro'>프리미어프로</option>
+        <option value='aftereffect'>애프터이펙트</option>
+        <option value='finalcut'>파이널컷</option>
+        <option value='vegas'>베가스</option>
+        <option value='photoshop'>포토샵</option>
+        <option value='illust'>일러스트</option>
+        <option value='blender'>Blender</option>
+        <option value='maya'>Maya</option>
+       </select>
+
+       <select class="filter_item" name="work">
+        <option value='all' selected>작업 종류별</option>
+        <option value='shoot'>영상촬영</option>
+        <option value='edit'>영상편집</option>
+        <option value='thumbnail'>썸네일 제작</option>
+        <option value='subtitle'>자막</option>
+        <option value='finalcut'>기타</option>
+      </select>
+    </div>
+    <div class="filter_wrapper">
+     <select class="filter_item" name="career">
+        <option value='all' selected>경력</option>
+        <option value='newbee'>경력무관</option>
+        <option value='one_five'>1-5년</option>
+        <option value='five_ten'>5년 이상</option>
+    </select>
+
+     <select class="filter_item" name="period">
+        <option value='all' selected>근무 기간별</option>
+        <option value='long'>장기</option>
+        <option value='shot'>단기</option>
+    </select>
+    </div>
+  <div class="filter_item last_filter" name="genre">
+      <input type="checkbox" id="뷰티" value="뷰티">
+       <label for="뷰티" class="last_filter_item">#뷰티</label>
+          
+      <input type="checkbox" id="여행" value="여행">
+       <label for="여행" class="last_filter_item">#여행</label>
+          
+       <input type="checkbox" id="vlog" value="vlog">
+       <label for="vlog" class="last_filter_item">#vlog</label>
+           
+       <input type="checkbox" id="요리" value="요리">
+       <label for="요리" class="last_filter_item">#요리</label>
+           
+       <input type="checkbox" id="취미" value="취미">
+       <label for="취미" class="last_filter_item">#취미</label>
+         
+       <input type="checkbox" id="먹방" value="먹방">
+       <label for="먹방" class="last_filter_item">#먹방</label>
+         
+       <input type="checkbox" id="리뷰" value="리뷰">
+       <label for="리뷰" class="last_filter_item">#리뷰</label>
+         
+       <input type="checkbox" id="기타(장르)" value="기타(장르)">
+       <label for="기타(장르)" class="last_filter_item">#기타</label>
+         
+       
+    </div>
+   <div class="filter_item last_filter" name="style">
+                 <input type="checkbox" id="웃긴" value="웃긴">
+                 <label for="웃긴" class="last_filter_item">#웃긴</label>
+                  
+                 <input type="checkbox" id="차분" value="차분">
+                 <label for="차분" class="last_filter_item">#차분</label>
+                   
+                  <input type="checkbox" id="meme" value="meme">
+                 <label for="meme" class="last_filter_item">#meme</label>
+                  
+                 <input type="checkbox" id="역동적" value="역동적">
+                 <label for="역동적" class="last_filter_item">#역동적</label>
+                   
+                 <input type="checkbox" id="개성" value="개성">
+                 <label for="개성" class="last_filter_item">#개성</label>
+                  
+                 <input type="checkbox" id="전문적" value="전문적">
+                 <label for="전문적" class="last_filter_item">#전문적</label>
+                   
+                 <input type="checkbox" id="기타(스타일)" value="기타(스타일)">
+                 <label for="기타(스타일)" class="last_filter_item">#기타</label>      
+    </div>
+</div>
+<div class="button_sort_box">
+   <button class="submit_button">나에게 맞는 유튜버 보기</button>
+
+   <select class="sort_bar" name="sort">
+       <option value='newest' selected>최신 순</option>
+       <option value='rate'>별점 순</option>
+       <option value='review'>리뷰 순</option>
+    </select>
+</div>
+<div class="post_box">
+  {% for post in post_youtuber %}
+   <a href="{% url 'detail_youtuber' post.pk %}" class="post_item">
+     <div class="post_item_left">
+       <div class="post_author_img" style="background-image:url('{{ post.img }}'); background-size : cover; background-position : center;"></div>
+       <div class="post_content_wrapper">
+         <span class="post_author">{{ post.name }}</span>
+         <span class="post_rate">⭐⭐⭐⭐(8)</span>
+         <p class="post_title">{{ post.title }}</p>
+         <div class="post_tag_wrapper">
+           <span class="post_tag">#{{ post.work }}</span>
+           <span class="post_tag">#{{ post.career }}</span>
+           <span class="post_tag">#{{ post.period }}</span>
+           <span class="post_tag">#{{ post.genre }}</span>
+         </div>
+      </div>
+     </div>
+     <div class="post_item_right">
+       <p class="d-day">2일 남음</p>
+     </div>
+   </a>
+   {% endfor %}
+</div>
+
+<div class="page_num">1 2 3</div>
+
+    
+    </main>
+      
+
+    <footer>
+      <p>@copyright likelion</p>
+    </footer>
+    
+  </body>
+  
+</html>

@@ -1,0 +1,32 @@
+{% block content %}
+<div class="top">
+    <div class="photo"></div>
+    <div class="profile">
+        <div class="username">{{user.username}}님의</div>
+        <div class="explain">거래내역입니다.</div>
+    </div>
+</div>
+<div class="situations">
+    <a class="transaction" href="{% url 'mypage_apply' %}">
+        <div class="situ">신청중</div>
+        <div class="number">{{}}</div>
+    </a>
+    <a class="transaction" href="{% url 'mypage_contract' %}">
+        <div class="situ">계약중</div>
+        <div class="number">{{}}</div>
+    </a>
+    <a class="transaction" href="{% url 'mypage_pay' %}">
+        <div class="situ">결제</div>
+        <div class="number">{{}}</div>
+    </a>
+</div>
+<div class="content">
+    <div class="title">신청내역</div>
+    <div class="">
+        {% for comment in post.comments.all %}
+        <div class="">{{comment.content}}</div>
+        {% endfor %}
+        {}
+    </div>
+</div>
+{% endblock content}

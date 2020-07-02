@@ -1,19 +1,213 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    {% extends 'base.html' %}
-    {% load static %} 
-    <link rel="stylesheet" type="text/css" href="{% static 'todo.css' %}"> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    {% block content %}
-    <div>
-        <div>오늘도,</div>
-        <div></div>
-    </div>
-    {% endblock content %}
-</body>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <title>편-안</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'home.css' %}">
+  </head>
+  <body>
+    <header>
+    <a href="{% url 'home' %}"><img class="logo_img"src="http://bitly.kr/YqkZ3WM87i" alt="logo"></a>
+     <nav>
+        <a href="{% url 'list_youtuber' %}" class="nav-item">모집공고</a>
+        <a href="{% url 'list_editor' %}" class="nav-item">편집자목록</a>
+          {% if user.is_authenticated %} 
+         <a href="{% url 'mypage_youtuber' %}" class="nav-item">마이페이지</a>
+         {% else %} 
+           <a href="{% url 'login' %}" class="nav-item">로그인</a>
+        {% endif %}
+      </nav>
+    </header>
+    <main> 
+      <div class="home_top">
+        <p class="home_top_title">오늘도<br><strong>{{ post_youtuber|length }}명의 유튜버</strong>와 <strong>{{ post_editor|length }}명의 편집자가</strong></br>편-안에서 만나고 있습니다.</p>
+      </div>
+    
+      <div class="weekly_box">
+        <h1 class="weekly_title">이번주의 BEST편집자</h1>
+        <div class="weekly_wrapper">
+        {% for post in post_editor %}
+          <div class="weekly_item">
+            <iframe class="weekly_video" src="{{ post.vid_url }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="weekly_content">
+              <span class="weekly_name"><strong>{{ post.name }}</strong></span>
+              <span class="weekly_name">ㅇ ㅇ ㅇ ㅇ(21)<br></span>
+              <span class="weekly_career">{{ post.basic_price }}원(분) </span>
+              <span class="weekly_genre">#{{ post.genre }} #{{ post.style }}</span>
+            </div>
+          </div>
+          {% endfor %}
+        </div>     
+      </div>
+  
+     {% if user.is_authenticated %}
+  
+   <div class="explore_box">
+     <h1 class="explore_title">마음껏 둘러보기</h1>
+     <div class="explore_wrapper"> 
+    {% for post in post_editor %}
+      <iframe class="explore_video" src="{{ post.vid_url }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    {% endfor %}
+     </div>
+   </div>
+    
+   <div class="realtime_box">
+     <h1 class="realtime_title">실시간 리뷰</h1>
+     <div class="realtime_wrapper">
+      {% for comment in comment_editor %}
+       <div class="realtime_item">  
+         <p class="realtime_content">{{comment.content}}</p>
+       </div> 
+       {% endfor %}
+     </div>
+   </div>
+   <a href="{% url 'list_editor' %}" class="submit_button">더 많은 편집자 보러가기 > </a>
+  
+  {% else %}
+      <div class="survey_box">
+         <h1 class="survey_title">1분만에 설문조사하고<br>나에게 딱 맞는 편집자 찾기</h1>
+         <a href="{% url 'signup' %}" class="go_to_signup">*저는 편집자에요!</a>
+         <div class="survey_wrapper">
+           <p class="survey_question_title">질문1. 편집하고 싶은 영상종류를 선택하세요.</p>
+           <div class="survey_question_box">
+               <div class="survey_question_wrapper">
+                 <input type="checkbox" id="뷰티" value="뷰티" class="survey_question_content">
+                 <label for="뷰티" class="survey_question_item">뷰티</label>
+                   
+                 <input type="checkbox" id="여행" value="여행" class="survey_question_content">
+                 <label for="여행" class="survey_question_item">여행</label>
+                   
+                 <input type="checkbox" id="vlog" value="vlog" class="survey_question_content">
+                  <label for="vlog" class="survey_question_item">vlog</label>
+                   
+                 <input type="checkbox" id="요리" value="요리" class="survey_question_content">
+                  <label for="요리" class="survey_question_item">요리</label>
+                   
+                
+               </div>
+               <div class="survey_question_wrapper">
+                 <input type="checkbox" id="취미" value="취미" class="survey_question_content">
+                  <label for="취미" class="survey_question_item">취미</label>
+                   
+                <input type="checkbox" id="먹방" value="먹방" class="survey_question_content">
+                  <label for="먹방" class="survey_question_item">먹방</label>
+                   
+                 <input type="checkbox" id="리뷰" value="리뷰" class="survey_question_content">
+                  <label for="리뷰" class="survey_question_item">리뷰</label>
+                   
+                 <input type="checkbox" id="기타(장르)" value="기타(장르)" class="survey_question_content">
+                 <label for="기타(장르)" class="survey_question_item">기타</label>
+                   
+                 
+               </div>
+           </div>
+           <p class="survey_question_title">질문2. 생각하고 있는 가격대는?</p>
+           <div class="survey_question_box">
+               <div class="survey_question_wrapper">
+                 <div class="survey_question_item first">(분당)</div>
+                 <input type="checkbox" id="under_10" value="under_10" class="survey_question_content">
+                 <label for="under_10" class="survey_question_item">만원 이하</label>
+                   
+                <input type="checkbox" id="ten_to_13" value="ten_to_13" class="survey_question_content">
+                 <label for="ten_to_13" class="survey_question_item">만원-만삼천원</label>
+                   
+                  <input type="checkbox" id="over_13" value="over_13" class="survey_question_content">
+                 <label for="over_13" class="survey_question_item">만삼천원 이상</label>
+
+               </div>
+
+               <div class="survey_question_wrapper">
+                 <div class="survey_question_item first">(건당)</div>
+                 <input type="checkbox" id="under_5" value="under_5" class="survey_question_content">
+                 <label for="under_5" class="survey_question_item">오만원 이하</label>
+                   
+                 <input type="checkbox" id="five_to_8" value="five_to_8" class="survey_question_content">
+                 <label for="five_to_8" class="survey_question_item">오만원-팔만원</label>
+                   
+                 <input type="checkbox" id="over_8" value="over_8" class="survey_question_content">
+                 <label for="over_8" class="survey_question_item">팔만원 이상</label>
+                  
+                 
+               </div>
+           </div>
+           <p class="survey_question_title">질문3. 원하는 편집스타일을 선택해주세요.</p>   
+           <div class="survey_question_box">
+               <div class="survey_question_wrapper">
+                  <input type="checkbox" id="웃긴" value="웃긴" class="survey_question_content">
+                 <label for="웃긴" class="survey_question_item">웃긴</label>
+                  
+                <input type="checkbox" id="차분한" value="차분한" class="survey_question_content">
+                 <label for="차분한" class="survey_question_item">차분한</label>
+                   
+                 <input type="checkbox" id="meme" value="meme" class="survey_question_content">
+                 <label for="meme" class="survey_question_item">meme</label>
+                   
+                 <input type="checkbox" id="역동적인" value="역동적인" class="survey_question_content">
+                 <label for="역동적인" class="survey_question_item">역동적인</label>
+                   
+                 
+               </div>
+               <div class="survey_question_wrapper">
+                 <input type="checkbox" id="개성있는" value="개성있는" class="survey_question_content">
+                 <label for="개성있는" class="survey_question_item">개성있는</label>
+                   
+                  <input type="checkbox" id="사차원" value="사차원" class="survey_question_content">
+                 <label for="사차원" class="survey_question_item">사차원</label>
+                  
+                <input type="checkbox" id="전문적인" value="전문적인" class="survey_question_content">
+                 <label for="전문적인" class="survey_question_item">전문적인</label>
+                   
+                 <input type="checkbox" id="기타(스타일)" value="기타(스타일)" class="survey_question_content">
+                 <label for="기타(스타일)" class="survey_question_item">기타(협의)</label>
+                  
+                 
+               </div>
+           </div>
+           <p class="survey_question_title">질문4. 원하는 작업종류를 선택해주세요.</p>   
+           <div class="survey_question_box">
+               <div class="survey_question_wrapper">
+                  <input type="checkbox" id="영상편집" value="영상편집" class="survey_question_content">
+                 <label for="영상편집" class="survey_question_item">영상편집</label>
+                  
+                  <input type="checkbox" id="영상촬영" value="영상촬영" class="survey_question_content">
+                 <label for="영상촬영" class="survey_question_item">영상촬영</label>
+                  
+                <input type="checkbox" id="자막" value="자막" class="survey_question_content">
+                 <label for="자막" class="survey_question_item">자막</label>
+                   
+                
+        
+               </div>
+               <div class="survey_question_wrapper">
+                  <input type="checkbox" id="썸네일제작" value="썸네일제작" class="survey_question_content">
+                 <label for="썸네일제작" class="survey_question_item">썸네일제작</label>
+                  
+                <input type="checkbox" id="애니메이션" value="애니메이션" class="survey_question_content">
+                 <label for="애니메이션" class="survey_question_item">애니메이션</label>
+                   
+                 <input type="checkbox" id="기타(작업)" value="기타(작업)" class="survey_question_content">
+                 <label for="기타(작업)" class="survey_question_item">기타(협의)</label>
+                   
+                 
+               </div>
+           </div>
+         </div>
+      </div>
+  
+      <a href="{% url 'list_editor' %}" class="submit_button"> 00 명의 편집자 보러가기 ></a>
+  
+  {% endif %}
+    
+    </main>
+      
+
+    <footer>
+      <p>@copyright likelion</p>
+    </footer>
+    
+  </body>
+  
 </html>

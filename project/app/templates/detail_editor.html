@@ -1,0 +1,188 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+   
+    <title>편-안</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'detail_editor.css' %}">
+  </head>
+  <body>
+    <header id="header">
+            <a href="{% url 'home' %}"><img class="logo_img"src="http://bitly.kr/YqkZ3WM87i" alt="logo"></a>
+     <nav>
+        <a href="{% url 'list_youtuber' %}" class="nav-item">모집공고</a>
+        <a href="{% url 'list_editor' %}" class="nav-item">편집자목록</a>
+          {% if user.is_authenticated %} 
+         <a href="{% url 'mypage_youtuber' %}" class="nav-item">마이페이지</a>
+         {% else %} 
+           <a href="{% url 'login' %}" class="nav-item">로그인</a>
+        {% endif %}
+      </nav>
+    </header>
+    <main> 
+<div class="detail_top">
+<p class="detail_title">"{{ post.title }}"</p>
+<div class="profile_box">
+    <div class="profile_img_wrapper">
+    {% if post.img == None %}
+        <div class="profile_img" ></div>
+   {% else %}
+        <div class="profile_img" style="background-image:url('{{ post.img }}'); background-size : cover; background-position : center;"></div>
+   {% endif%}
+   
+    </div>
+    <div class="profile_content_wrapper">
+        <div class="profile_content_top">
+          <span class="profile_name">{{ post.name }}</span>
+          {% if user.is_authenticated and post.author.pk == user.pk %}
+          <a href="{% url 'edit_editor' post.pk %}" class="edit_button">수정</a>
+          <a href="{% url 'delete_editor' post.pk %} " class="delete_button">삭제</a>
+          {% endif %}
+        </div>
+            <p class="profile_content_bottom">
+            편집 가능 툴 : {{ post.tool }}<br>
+            희망 근무 형태 : {{ post.work }}<br>
+            희망 급여 : 분당 {{ post.basic_price }}원 ~
+            </p>
+    </div>
+ </div>    
+</div>
+
+<div class="nav_box">
+    <a href="#intro_box"><span class="nav_item intro">상세소개</span></a>
+    <a href="#price_box"><span class="nav_item price">가격</span></a>
+    <a href="#review_box"><span class="nav_item review">리뷰/평점(3)</span></a>
+    <a href="#info_box"><span class="nav_item info">이용안내</span></a>
+</div>
+<div class="intro_box" id="intro_box">
+    <div class="intro_title">상세소개</div>
+    <iframe class="intro_vid" src="{{ post.vid_url }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <div class="intro_description">
+    <p>{{ post.content }}
+</p>
+    </div>
+</div>
+
+<div class="price_box" id="price_box">
+    <div class="price_title">가격</div>
+    <div class="price_wrapper">
+        <div class="basic_box">
+            <div class="basic_top">BASIC</div>
+            <div class="basic_middle">
+                <p class="basic_middle_item one">{{ post.basic_content }}
+            </div>
+            <div class="basic_bottom"><p>분당 {{ post.basic_price }}원</p></div>
+        </div>
+        <div class="standard_box">
+            <div class="standard_top">STANDARD</div>
+            <div class="standard_middle">
+                <p class="standard_middle_item one">{{ post.standard_content }}</p>
+            </div>
+            <div class="standard_bottom"><p>분당 {{ post.standard_price }}원</p></div>
+        </div>
+        <div class="premium_box">
+            <div class="premium_top">PREMIUM</div>
+            <div class="premium_middle">
+                <p class="premium_middle_item one">{{ post.premium_content }}</p>
+            </div>
+            <div class="premium_bottom"><p>분당 {{ post.premium_price }}원</p></div>
+        </div>
+    </div>
+</div>
+ 
+         
+<div class="review_box" id="review_box">
+    <div class="review_title">리뷰/평점(3)</div>
+    {% if user.is_authenticated %}
+        <form class="review_input_box" method="POST">
+        {% csrf_token %} 
+            <div class="review_input_top">
+                <div class="review_input_rate">
+                    <input type="radio" name="rate" id="star5" value="5"><label for="star5">
+                    </label>
+                    <input type="radio" name="rate" id="star4" value="4"><label for="star4">
+                    </label>
+                    <input type="radio" name="rate" id="star3" value="3"><label for="star3">
+                    </label>
+                    <input type="radio" name="rate" id="star2" value="2"><label for="star2">
+                    </label>
+                    <input type="radio" name="rate" id="star1" value="1" checked><label for="star1" >
+                    </label>
+                    
+                </div>
+                <button class="review_submit_button" type="submit">리뷰 작성</button>
+            </div>
+            <div class="review_input_bottom">
+            <textarea class="review_input_content" style="text" placeholder="리뷰를 작성하세요" name="content" required></textarea>
+            </div>
+        </form>
+    {% endif %}
+    <div class="review_list_box">
+        {% for comment in post.comments_e.all %}
+            <div class="review_list_item">
+                <div class="review_content">
+                    <div class="review_content_top">
+                        <div class="review_author_img" ></div>
+                        <span class="review_author_name">{{ comment.author }}</span>
+                        <span class="review_rate"> 
+                        {% if comment.rate == 5 %}
+                        ⭐⭐⭐⭐⭐
+                        {% elif comment.rate == 4 %}
+                        ⭐⭐⭐⭐
+                        {% elif comment.rate == 3 %}
+                        ⭐⭐⭐
+                        {% elif comment.rate == 2 %}
+                        ⭐⭐
+                        {% else %}
+                        ⭐
+                        {% endif %}
+                        </span>
+                        {% if user.is_authenticated and comment.author.pk == user.pk %}
+                            <a class="delete_comment_button" href="{% url 'delete_comment_e' post.pk comment.pk %}">삭제</a>
+                        {% endif %}
+                        <span class="review_datetime">{{ comment.datetime }}</span>
+                    </div>
+                    <p class="review_content_text">{{ comment.content }}</p>
+                </div>
+            </div>
+        </form>
+        {% endfor %} 
+ 
+    </div>
+</div>
+<div class="info_box" id="info_box">
+    <div class="info_title">이용안내</div>
+    <div class="info_method_wrapper">
+        <p class="info_method_title">📌 문의방식</p>
+        <p class="info_method_text">{{ post.inquiry }}</p>
+    </div>
+    <div class="refund_method_wrapper">
+        <p class="refund_method_title">📌 환불규정</p>
+        <p class="refund_method_text">작업진행 이후 환불요청시 환불이 불가능 합니다.
+다만 서비스 장애나 혹은 서비스에 문제가 생겼을 경우에는 언제든지 연락 주시면
+도와 드리고 있습니다.
+<br><br>
+*요청주신 서비스보다 감소하는 문제가 생길경우 30일 이내로 AS요청 1회 진행이
+가능 하십니다.
+<br><br>
+*링크를 잘못 남겨 서비스 진행에 문제가 생길경우 별도의 환불진행이나 AS가 되지않는점 반드시 숙지해주시길 바라며 반드시 올바르게 남겨주셔야 합니다.
+(링크 복사하는 방법을 모르실경우 언제든 문의메세지를 주세요.)</p>
+    </div>
+</div>
+<div class="bottom">
+    <div class="like_button">♡</div>
+    <a href="" class="chat">채팅하기</a>
+    <a href="" class="register">신청하기</a>
+    <a href="#header" class="go_to_top">⬆</a>
+</div>
+
+</main>
+
+</body>
+  
+</html>

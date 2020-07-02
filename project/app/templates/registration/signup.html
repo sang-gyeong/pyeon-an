@@ -1,0 +1,46 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <title>편-안</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'signup.css' %}">
+  </head>
+  <body>
+    <header>
+       <a href="{% url 'home' %}"><img class="logo_img"src="http://bitly.kr/g0orDEy8SP" alt="logo"></a>
+     <nav>
+        <a href="{% url 'list_youtuber' %}" class="nav-item">모집공고</a>
+        <a href="{% url 'list_editor' %}" class="nav-item">편집자목록</a>
+          {% if user.is_authenticated %} 
+         <a href="{% url 'mypage_youtuber' %}" class="nav-item">마이페이지</a>
+         {% else %} 
+           <a href="{% url 'login' %}" class="nav-item">로그인</a>
+        {% endif %}
+      </nav>
+    </header>
+    <main> 
+         <form class="signup_box" method="POST"> 
+        {% csrf_token %}
+        <h3 class="signup_title">회원가입</h3>
+        {% if error %}
+        <p class="error_message" style="color : tomato;">{{ error }}</p>
+        {% endif %}
+        <div class="signup_wrapper">
+            <input type="text" name="username" placeholder="ID">
+            <input type="password" name="password" placeholder="Password">
+            <button class="signup_button" type="submit">가입하기</button>
+        </div>
+    </form>
+    </main>
+  </body>
+</html>
+
+
+
+    
+
+

@@ -1,0 +1,255 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <title>편-안</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'new_youtuber.css' %}">
+  </head>
+  <body>
+    <header id="header">
+       <a href="{% url 'home' %}"><img class="logo_img"src="http://bitly.kr/YqkZ3WM87i" alt="logo"></a>
+     <nav>
+        <a href="{% url 'list_youtuber' %}" class="nav-item">모집공고</a>
+        <a href="{% url 'list_editor' %}" class="nav-item">편집자목록</a>
+          {% if user.is_authenticated %} 
+         <a href="{% url 'mypage_youtuber' %}" class="nav-item">마이페이지</a>
+         {% else %} 
+           <a href="{% url 'login' %}" class="nav-item">로그인</a>
+        {% endif %}
+      </nav>
+    </header>
+<main> 
+ <form action="" method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  <p class="new_title">편집자 모집공고 작성하기</p>
+  <div class="profile_box">
+    <p class="profile_title">모집자 정보</p>
+    <div class="profile_bottom">
+       <div class="profile_img_wrapper"></div>
+        <div class="profile_input_wrapper">
+          <div class="profile_top">
+            <textarea class="profile_name_input" type="text" maxlength="10" placeholder="이름" name="name" required></textarea>
+            <input class="profile_img_input" type="file" name="img">
+          </div>
+          <textarea class="profile_title_input" type="text" placeholder="프로필 제목을 입력하세요" name="title" required></textarea>
+        </div>
+    </div>
+  </div>
+  <div class="nec_box">
+    <p class="nec_title">모집 조건</p>
+       <div class="tool_box">
+      <p class="tool_title">지원 조건(경력)</p>
+      <div class="tool_item_box">
+        <div class="tool_item_wrapper">
+            <input type="radio" id="any_career" name="career"  value="경력 무관">
+            <label class="tool_item" for="any_career">경력 무관</label>
+                
+            <input type="radio" id="over_one_year" name="career" value="1년 이상">
+            <label class="tool_item" for="over_one_year">1년 이상</label>
+                
+            <input type="radio" id="over_three_year" name="career" value="3년 이상">
+            <label class="tool_item" for="over_three_year">3년 이상</label>
+                
+            <input type="radio" id="over_five_year" name="career" value="5년 이상">
+            <label class="tool_item" for="over_five_year">5년 이상</label>   
+      </div> 
+     </div>
+</div>
+       <div class="tool_box">
+      <p class="tool_title">근무 기간</p>
+      <div class="tool_item_box">
+        <div class="tool_item_wrapper">
+            <input type="radio" id="one_three_mon" name="period"  value="단기(1-3개월)">
+            <label class="tool_item" for="one_three_mon">1-3개월</label>
+                
+            <input type="radio" id="three_six_mon" name="period" value="3개월-6개월">
+            <label class="tool_item" for="three_six_mon">3개월-6개월</label>
+                
+            <input type="radio" id="over_six_mon" name="period" value="(장기)6개월 이상">
+            <label class="tool_item" for="over_six_mon">(장기)6개월 이상</label>
+                
+            <input type="radio" id="consult" name="period" value="협의">
+            <label class="tool_item" for="consult">협의</label>
+        </div>
+      </div> 
+     </div>
+
+    <div class="tool_box">
+      <p class="tool_title">우대편집툴</p>
+      <div class="tool_item_box">
+        <div class="tool_item_wrapper">
+            <input type="checkbox" name="tool" id="프리미어프로" value="프리미어프로">
+           <label class="tool_item" for="프리미어프로">프리미어프로
+            </label>
+            
+                <input type="checkbox" name="tool" id="베가스" value="베가스">
+            <label class="tool_item" for="베가스">베가스
+            </label>
+           
+                <input type="checkbox" name="tool" id="포토샵" value="포토샵">
+           <label class="tool_item" for="포토샵">포토샵
+            </label>
+            
+                <input type="checkbox" name="tool" id="애프터이펙트" value="애프터이펙트">
+          <label class="tool_item" for="애프터이펙트">애프터이펙트
+            </label>
+        </div>
+        <div class="tool_item_wrapper">
+            
+                <input type="checkbox" id="일러스트" name="tool" value="일러스트">
+          <label class="tool_item" for="일러스트">일러스트
+            </label>
+            
+                <input type="checkbox" id="Finalcut" name="tool" value="Finalcut">
+          <label class="tool_item" for="Finalcut">Finalcut
+            </label>
+            
+                <input type="checkbox" id="Blender" name="tool" value="Blender">
+          <label class="tool_item" for="Blender">Blender
+            </label>
+           
+                <input type="checkbox" id="Maya" name="tool" value="Maya">
+           <label class="tool_item" for="Maya">Maya
+            </label>
+        </div>
+      </div> 
+     </div>
+    
+    </div>
+<div class=nec_box>
+      <p class="nec_title">작업 관련 사항</p>
+  <div class="work_box">
+      <p class="work_title">원하는 작업종류</p>
+      <div class="work_item_box">
+        <div class="work_item_wrapper">
+            
+                <input type="checkbox" id="영상편집" name="work" value="영상편집">
+          <label class="work_item" for="영상편집">영상편집
+            </label>
+            
+                <input type="checkbox" id="영상촬영" name="work" value="영상촬영">
+          <label class="work_item" for="영상촬영">영상촬영
+            </label>
+           
+                <input type="checkbox" id="자막" name="work" value="자막">
+           <label class="work_item" for="자막">자막
+            </label>
+        </div>
+        <div class="work_item_wrapper">
+           
+                <input type="checkbox" id="썸네일제작" name="work" value="썸네일제작">
+           <label class="work_item" for="썸네일제작">썸네일제작
+            </label>
+           
+                <input type="checkbox" id="애니메이션" name="work" value="애니메이션">
+           <label class="work_item" for="애니메이션">애니메이션
+            </label>
+           
+                <input type="checkbox" id="기타작업" name="work" value="기타(협의)">
+           <label class="work_item" for="기타작업">기타(협의)
+            </label>
+        </div>
+      </div>
+    </div>
+      <div class="work_box">
+      <p class="work_title">원하는 영상종류</p>
+      <div class="work_item_box">
+        <div class="work_item_wrapper">
+            
+                <input type="checkbox" id="뷰티" name="genre" value="뷰티">
+          <label class="work_item" for="뷰티">뷰티
+            </label>
+            
+                <input type="checkbox" id="여행" name="genre" value="여행">
+          <label class="work_item" for="여행">여행
+            </label>
+            
+                <input type="checkbox" id="vlog" name="genre" value="vlog">
+          <label class="work_item" for="vlog">vlog
+            </label>
+            
+                <input type="checkbox" id="요리" name="genre" value="요리">
+          <label class="work_item" for="요리">요리
+            </label>
+        </div>
+        <div class="work_item_wrapper">
+            
+                <input type="checkbox" id="취미" name="genre" value="취미">
+          <label class="work_item" for="취미">취미
+            </label>
+           
+                <input type="checkbox" id="먹방" name="genre" value="먹방">
+           <label class="work_item" for="먹방">먹방
+            </label>
+            
+                <input type="checkbox" id="리뷰" name="genre" value="리뷰">
+          <label class="work_item" for="리뷰">리뷰
+            </label>
+            
+                <input type="checkbox" id="기타장르" name="genre" value="기타">
+          <label class="work_item" for="기타장르">기타
+            </label>
+        </div> 
+      </div>
+    </div>
+  <div class="work_box">
+      <p class="work_title">원하는 편집스타일</p>
+       <div class="style_item_wrapper">
+             
+               
+                  <input type="checkbox" name="style" id="웃긴" value="웃긴">
+                  <label for="웃긴" class="style_item">#웃긴
+                </label>
+                 
+                   <input type="checkbox" name="style" id="차분" value="차분" >
+                <label for="차분" class="style_item">#차분
+                 </label>
+                
+                   <input type="checkbox" name="style" id="밈" value="밈">
+                 <label for="밈" class="style_item">#밈
+                </label>
+                
+                   <input type="checkbox" name="style" id="역동적" value="역동적">
+                  <label for="역동적" class="style_item">#역동적
+                </label>
+
+                 
+                   <input type="checkbox" name="style" id="개성" value="개성">
+                <label for="개성" class="style_item">#개성
+                 </label>
+                
+                   <input type="checkbox" name="style" id="전문적" value="전문적">
+               <label for="전문적" class="style_item">#전문적
+                 </label>
+               
+                   <input type="checkbox" name="style" id="기타스타일" value="기타">
+                 <label for="기타스타일" class="style_item">#기타
+                 </label>
+          </div>
+      </div>
+
+      <p class="work_title" >기타 요구 사항(간략히)</p>
+<input type="text" class="etc_require" placeholder="내용을 입력하세요.">
+
+</div>
+<div class=det_box>
+      <p class="nec_title">상세정보</p>
+      <p class="introduce_description">채널소개 및 근무내용에 대하여 기입해주세요.</p>
+      <textarea type="text" class="introduce_text" name="content"></textarea>
+      <button class="introduce_file_input">파일 첨부하기</button>
+      <p class="introduce_description">유튜브 링크 첨부하기</p>
+       <textarea type="url" class="introduce_url" placeholder="예) https://www.youtube.com/watch?v=g9JzbG7FfkM" name="vid_url"></textarea>
+      <p class="inquiry_description">문의방식 및 지원 시 참고사항을 기입해주세요.</p>
+        <textarea type="text" class="inquiry_text" name="inquiry"></textarea>
+</div>
+<button type="submit" class="submit_button">공고 작성 완료</button>
+</form>
+</main>
+
+
+</body>
+  
+</html>

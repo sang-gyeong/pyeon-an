@@ -7,6 +7,9 @@ verify_ssl = true
 
 [packages]
 django = "*"
+django-storages = "*"
+boto3 = "*"
+django-star-ratings = "*"
 
 [requires]
 python_version = "3.7"
